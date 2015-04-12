@@ -3,6 +3,7 @@
   
   include_once(dirname(__FILE__) ."/../config.php");
   include_once(dirname(__FILE__) ."/definitions.php");
+  include_once(dirname(__FILE__) ."/ChromePhp.php");
 
   // set character encoding
   header('Content-Type: text/html; charset=utf-8');

@@ -168,6 +168,9 @@
     <string key="ALL_USERS">
       All users
     </string> 
+    <string key="PUBLIC_CREATE">
+      Create account
+    </string>
     <string key="ADMIN_LOGIN">
       Administrator log in
     </string> 

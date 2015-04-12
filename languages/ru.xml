@@ -290,6 +290,9 @@
     <string key="EDIT">
       Редактировать
     </string> 
+    <string key="PUBLIC_CREATE">
+      Создать пользователя
+    </string> 
     <string key="ADMIN_LOGIN_INFO">
       Имя и пароль согласно установкам в config.php.
     </string> 

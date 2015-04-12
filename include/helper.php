@@ -490,6 +490,8 @@
           <a href="users.php"><?php print _SITE_TITLE; ?></a>
           <span class="separator">|</span>
           <?php if(!$isLoggedIn) { ?>
+	    <a href="enter_public_creation_code.php"><?php print __("PUBLIC_CREATE"); ?></a>
+	    <span class="separator">|</span>
             <a href="admin_login.php"><?php print __("ADMIN_LOGIN"); ?></a>
           <?php } else { ?>
             <a href="edit_user.php?mode=admin"><?php print __("ADD_USER"); ?></a>
@@ -595,6 +597,8 @@
       $temporaryDirectory = Helper::LocalPath(TEMP_FILE_PATH ."/");
       $fileName = null;
       $error = null;
+      ChromePhp::log("Uploaded file:");
+      ChromePhp::log($uploadedFile);
       if($uploadedFile['name'])
       {
         $extension = Helper::GetExtension($uploadedFile['name']);
@@ -603,6 +607,8 @@
         {
           $error = "couldNotCopyUploadedFile";
         }
+        ChromePhp::log("Error?:");
+        ChromePhp::log($error);
       }
       return array("fileName" => $fileName, "error" => $error);
     }
