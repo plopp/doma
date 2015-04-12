@@ -121,19 +121,19 @@
 <?php } ?>
 
 <div class="container">
-<label for="mapImage"><?php print __("MAP_IMAGE_FILE")?></label>
+<label for="mapImage"><?php print __("MAP_IMAGE_FILE")?> (<<?php print ini_get ("upload_max_filesize")?>B)</label>
 <input type="file" id="mapImage" name="mapImage" class="tooltipControl" />
 <div class="tooltip hidden"><?php print __("MAP_INFO"); if(isset($vd["MapID"])) print " ". __("LEAVE_EMPTY_TO_KEEP_EXISTING_MAP"); ?></div>
 </div>
 
 <div class="container">
-<label for="blankMapImage"><?php print __("BLANK_MAP_IMAGE_FILE")?></label>
+<label for="blankMapImage"><?php print __("BLANK_MAP_IMAGE_FILE")?> (<<?php print ini_get ("upload_max_filesize")?>B)</label>
 <input type="file" id="blankMapImage" name="blankMapImage" class="tooltipControl" />
 <div class="tooltip hidden"><?php print __("BLANK_MAP_INFO"); if(isset($vd["MapID"])) print " ". __("LEAVE_EMPTY_TO_KEEP_EXISTING_MAP"); ?></div>
 </div>
 
 <div class="container">
-<label for="thumbnailImage"><?php print __("THUMBNAIL_IMAGE_FILE")?></label>
+<label for="thumbnailImage"><?php print __("THUMBNAIL_IMAGE_FILE")?> (<<?php print ini_get ("upload_max_filesize")?>B)</label>
 <input type="file" id="thumbnailImage" name="thumbnailImage" class="tooltipControl" />
 <div class="tooltip hidden"><?php printf(__("THUMBNAIL_INFO"), THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT); ?></div>
 </div>

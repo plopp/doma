@@ -5,7 +5,6 @@
   {
     public function Execute()
     {
-
       $viewData = array();
 
       $errors = array();
@@ -69,11 +68,11 @@
           $isNewMap = true;
         }
       }
-
       if(isset($save))
       {
         // validate
         // name
+        ChromePhp::log($map);
         if(trim($map->Name) == "") $errors[] = __("NO_MAP_NAME_ENTERED");
         // date
         if(trim($map->Date) == "") $errors[] = __("NO_DATE_ENTERED");
@@ -104,17 +103,99 @@
         $validMimeTypes = array("image/jpeg", "image/gif", "image/png");
         // map image
         $mapImageUploaded = ($_FILES["mapImage"]["tmp_name"] != "");
-        if($mapImageUploaded) $mapImageInfo = getimagesize($_FILES["mapImage"]["tmp_name"]);
-        if($mapImageUploaded && !in_array($mapImageInfo["mime"], $validMimeTypes)) $errors[] = sprintf(__("INVALID_MAP_IMAGE_FORMAT"), $_FILES["mapImage"]["name"]);
+        ChromePhp::log($mapImageUploaded);
+        if(!$mapImageUploaded){
+          if($_FILES["mapImage"]["error"] == 1){
+            $errors[] = sprintf(__("FILE_SIZE_TOO_BIG"),__("MAP_IMAGE_FILE"),ini_get ("upload_max_filesize"));
+          }
+          else if($_FILES["mapImage"]["error"] == 3){
+              $errors[] = sprintf(__("ERROR_FILE_PARTIALLY_UPLOADED"),__("MAP_IMAGE_FILE"));
+          }  
+          else if($_FILES["mapImage"]["error"] == 4){
+            if($isNewMap){              
+              $errors[] = sprintf(__("NO_MAP_FILE_ENTERED"),__("MAP_IMAGE_FILE"));              
+            }              
+          } 
+          else if($_FILES["mapImage"]["error"] == 6){
+              $errors[] = __("ERROR_TEMP_FOLDER_MISSING");
+          } 
+          else if($_FILES["mapImage"]["error"] == 7){
+              $errors[] = sprintf(__("ERROR_FAILED_WRITE_FILE_TO_DISK"),__("MAP_IMAGE_FILE"));
+          }
+          else{
+              $errors[] = "Unkown error.";
+          }         
+        }        
+        else{
+          $mapImageInfo = getimagesize($_FILES["mapImage"]["tmp_name"]);
+          if(!in_array($mapImageInfo["mime"], $validMimeTypes)) $errors[] = sprintf(__("INVALID_MAP_IMAGE_FORMAT"), $_FILES["mapImage"]["name"]);
+        }
         // map image
+        ChromePhp::log($blankMapImageUploaded);
         $blankMapImageUploaded = ($_FILES["blankMapImage"]["tmp_name"] != "");
-        if($blankMapImageUploaded) $blankMapImageInfo = getimagesize($_FILES["blankMapImage"]["tmp_name"]);
-        if($blankMapImageUploaded && !in_array($blankMapImageInfo["mime"], $validMimeTypes)) $errors[] = sprintf(__("INVALID_BLANK_MAP_IMAGE_FORMAT"), $_FILES["mapImage"]["name"]);
-        if($isNewMap && !$mapImageUploaded && !$blankMapImageUploaded) $errors[] = __("NO_MAP_FILE_ENTERED");
-        // thumbnail image
+        if(!$blankMapImageUploaded){
+          if($_FILES["blankMapImage"]["error"] == 1){
+            $errors[] = sprintf(__("FILE_SIZE_TOO_BIG"),__("BLANK_MAP_IMAGE_FILE"),ini_get ("upload_max_filesize"));
+          }
+          else if($_FILES["blankMapImage"]["error"] == 3){
+              $errors[] = sprintf(__("ERROR_FILE_PARTIALLY_UPLOADED"),__("BLANK_MAP_IMAGE_FILE"));
+          }  
+          else if($_FILES["blankMapImage"]["error"] == 4){
+            if($isNewMap){              
+              //Blank map image is optional              
+            }
+          } 
+          else if($_FILES["blankMapImage"]["error"] == 6){
+              $errors[] = __("ERROR_TEMP_FOLDER_MISSING");
+          } 
+          else if($_FILES["blankMapImage"]["error"] == 7){
+              $errors[] = sprintf(__("ERROR_FAILED_WRITE_FILE_TO_DISK"),__("BLANK_MAP_IMAGE_FILE"));
+          }
+          else{
+              $errors[] = "Unkown error.";
+          }         
+        }        
+        else{
+          $blankMapImageInfo = getimagesize($_FILES["blankMapImage"]["tmp_name"]);
+          if(!in_array($blankMapImageInfo["mime"], $validMimeTypes)) $errors[] = sprintf(__("INVALID_BLANK_MAP_IMAGE_FORMAT"), $_FILES["mapImage"]["name"]);
+        }
+
+  ChromePhp::log($thumbnailImageUploaded);
         $thumbnailImageUploaded = ($_FILES["thumbnailImage"]["tmp_name"] != "");
-        if($thumbnailImageUploaded) $thumbnailImageInfo = getimagesize($_FILES["thumbnailImage"]["tmp_name"]);
-        if($thumbnailImageUploaded && !in_array($thumbnailImageInfo["mime"], $validMimeTypes)) $errors[] = sprintf(__("INVALID_THUMBNAIL_IMAGE_FORMAT"), $_FILES["thumbnailImage"]["name"]);
+        if(!$thumbnailImageUploaded){
+          if($_FILES["thumbnailImage"]["error"] == 1){
+            $errors[] = sprintf(__("FILE_SIZE_TOO_BIG"),__("THUMBNAIL_IMAGE_FILE"),ini_get ("upload_max_filesize"));
+          }
+          else if($_FILES["thumbnailImage"]["error"] == 3){
+              $errors[] = sprintf(__("ERROR_FILE_PARTIALLY_UPLOADED"),__("THUMBNAIL_IMAGE_FILE"));
+          }  
+          else if($_FILES["thumbnailImage"]["error"] == 4){
+              if($isNewMap){                             
+                //Thumbnail is optional  
+              }              
+          } 
+          else if($_FILES["thumbnailImage"]["error"] == 6){
+              $errors[] = __("ERROR_TEMP_FOLDER_MISSING");
+          } 
+          else if($_FILES["thumbnailImage"]["error"] == 7){
+              $errors[] = sprintf(__("ERROR_FAILED_WRITE_FILE_TO_DISK"),__("THUMBNAIL_IMAGE_FILE"));
+          }
+          else{
+              $errors[] = "Unkown error.";
+          }         
+        }        
+        else{
+          $thumbnailImageInfo = getimagesize($_FILES["thumbnailImage"]["tmp_name"]);
+          if(!in_array($thumbnailImageInfo["mime"], $validMimeTypes)) $errors[] = sprintf(__("INVALID_THUMBNAIL_IMAGE_FORMAT"), $_FILES["thumbnailImage"]["name"]);
+        }
+
+        
+        //if($isNewMap && !$mapImageUploaded && !$blankMapImageUploaded) $errors[] = __("NO_MAP_FILE_ENTERED");
+        // thumbnail image
+        
+
+
+        
 
         if(count($errors) == 0)
         {

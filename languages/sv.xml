@@ -152,6 +152,9 @@
     <string key="ADMIN_LOGIN">
       Administratörsinloggning
     </string>
+    <string key="PUBLIC_CREATE">
+      Skapa användare
+    </string>
     <string key="ADMIN_LOGOUT">
       Administratörsutloggning
     </string>
@@ -230,6 +233,18 @@
     </string>
     <string key="CANCEL">
       Avbryt
+    </string>
+    <string key="FILE_SIZE_TOO_BIG">
+      %s är för stor: >%s
+    </string>
+    <string key="ERROR_FILE_PARTIALLY_UPLOADED">
+      %s kunde bara laddas upp delvis. Försök igen.
+    </string>
+    <string key="ERROR_TEMP_FOLDER_MISSING">
+      Kunde inte hitta temp-mappen på servern.
+    </string>
+    <string key="ERROR_FAILED_WRITE_FILE_TO_DISK">
+      %s kunde inte sparas på servern.
     </string>
     <string key="NO_MAP_FILE_ENTERED">
       Ingen bildfil för kartan har angetts.
