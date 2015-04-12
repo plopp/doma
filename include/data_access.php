@@ -248,6 +248,7 @@
     {
       $uploadDir = Helper::LocalPath(MAP_IMAGE_PATH ."/");
       self::DeleteMapImage($map);
+      self::DeleteBlankMapImage($map);
       self::DeleteThumbnailImage($map);
       $map->Delete();
     }
@@ -567,6 +568,7 @@
       foreach($maps as $m)
       {
         self::DeleteMapImage($m);
+        slef::DeleteBlankMapImage($m);
         self::DeleteThumbnailImage($m);
       }
       $id = mysqli_real_escape_string($GLOBALS["dbCon"], $id);
@@ -779,7 +781,7 @@
     {
       $result = @mysqli_query($GLOBALS["dbCon"], $sql);
       Helper::WriteToLog($sql);
-	  $error = mysqli_error($GLOBALS["dbCon"]);
+    $error = mysqli_error($GLOBALS["dbCon"]);
       if($error) Helper::WriteToLog("MYSQL ERROR: ". $error);
       return $result;
     }
