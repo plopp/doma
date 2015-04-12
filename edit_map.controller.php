@@ -72,7 +72,6 @@
       {
         // validate
         // name
-        ChromePhp::log($map);
         if(trim($map->Name) == "") $errors[] = __("NO_MAP_NAME_ENTERED");
         // date
         if(trim($map->Date) == "") $errors[] = __("NO_DATE_ENTERED");
@@ -101,9 +100,9 @@
 
         // images
         $validMimeTypes = array("image/jpeg", "image/gif", "image/png");
+
         // map image
         $mapImageUploaded = ($_FILES["mapImage"]["tmp_name"] != "");
-        ChromePhp::log($mapImageUploaded);
         if(!$mapImageUploaded){
           if($_FILES["mapImage"]["error"] == 1){
             $errors[] = sprintf(__("FILE_SIZE_TOO_BIG"),__("MAP_IMAGE_FILE"),ini_get ("upload_max_filesize"));
@@ -130,8 +129,7 @@
           $mapImageInfo = getimagesize($_FILES["mapImage"]["tmp_name"]);
           if(!in_array($mapImageInfo["mime"], $validMimeTypes)) $errors[] = sprintf(__("INVALID_MAP_IMAGE_FORMAT"), $_FILES["mapImage"]["name"]);
         }
-        // map image
-        ChromePhp::log($blankMapImageUploaded);
+        // blank map image
         $blankMapImageUploaded = ($_FILES["blankMapImage"]["tmp_name"] != "");
         if(!$blankMapImageUploaded){
           if($_FILES["blankMapImage"]["error"] == 1){
@@ -142,7 +140,7 @@
           }  
           else if($_FILES["blankMapImage"]["error"] == 4){
             if($isNewMap){              
-              //Blank map image is optional              
+              // blank map image is optional              
             }
           } 
           else if($_FILES["blankMapImage"]["error"] == 6){
@@ -160,7 +158,7 @@
           if(!in_array($blankMapImageInfo["mime"], $validMimeTypes)) $errors[] = sprintf(__("INVALID_BLANK_MAP_IMAGE_FORMAT"), $_FILES["mapImage"]["name"]);
         }
 
-  ChromePhp::log($thumbnailImageUploaded);
+        // thumbnail image
         $thumbnailImageUploaded = ($_FILES["thumbnailImage"]["tmp_name"] != "");
         if(!$thumbnailImageUploaded){
           if($_FILES["thumbnailImage"]["error"] == 1){
@@ -171,7 +169,7 @@
           }  
           else if($_FILES["thumbnailImage"]["error"] == 4){
               if($isNewMap){                             
-                //Thumbnail is optional  
+                //thumbnail is optional  
               }              
           } 
           else if($_FILES["thumbnailImage"]["error"] == 6){
